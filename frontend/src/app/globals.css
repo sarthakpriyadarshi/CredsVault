@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer base {
+  :root {
+    --background: 241 55% 100%;
+    --foreground: 241 70% 1%;
+    --muted: 211 15% 89%;
+    --muted-foreground: 211 12% 29%;
+    --popover: 241 55% 100%;
+    --popover-foreground: 241 70% 1%;
+    --card: 241 55% 100%;
+    --card-foreground: 241 70% 1%;
+    --border: 241 9% 95%;
+    --input: 241 9% 95%;
+    --primary: 241 36% 20%;
+    --primary-foreground: 241 36% 80%;
+    --secondary: 211 36% 20%;
+    --secondary-foreground: 211 36% 80%;
+    --accent: 271 36% 20%;
+    --accent-foreground: 271 36% 80%;
+    --destructive: 9 94% 38%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 241 36% 20%;
+    --chart-1: 241 36% 20%;
+    --chart-2: 211 36% 20%;
+    --chart-3: 271 36% 20%;
+    --chart-4: 211 36% 23%;
+    --chart-5: 241 39% 20%;
+    --radius: 0.5rem;
+    --font-tomorrow: "Tomorrow";
+  }
+
+  .tomorrow {
+    font-family: var(--font-tomorrow);
+  }
+  
+  .dark {
+    --background: 241 54% 3%;
+    --foreground: 241 25% 98%;
+    --muted: 211 15% 11%;
+    --muted-foreground: 211 12% 71%;
+    --popover: 241 54% 3%;
+    --popover-foreground: 241 25% 98%;
+    --card: 241 54% 3%;
+    --card-foreground: 241 25% 98%;
+    --border: 241 9% 10%;
+    --input: 241 9% 10%;
+    --primary: 241 36% 20%;
+    --primary-foreground: 241 36% 80%;
+    --secondary: 211 36% 20%;
+    --secondary-foreground: 211 36% 80%;
+    --accent: 271 36% 20%;
+    --accent-foreground: 271 36% 80%;
+    --destructive: 9 94% 59%;
+    --destructive-foreground: 0 0% 0%;
+    --ring: 241 36% 20%;
+    --chart-1: 241 36% 20%;
+    --chart-2: 211 36% 20%;
+    --chart-3: 271 36% 20%;
+    --chart-4: 211 36% 23%;
+    --chart-5: 241 39% 20%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

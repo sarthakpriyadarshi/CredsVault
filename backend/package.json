@@ -1,0 +1,33 @@
+{
+  "name": "creds-vault",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "bun src/index.ts",
+    "dev": "bun --watch src/index.ts"
+  },
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/nodemailer": "^6.4.17"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
+    "bcrypt": "^5.1.1",
+    "canvas": "^3.1.0",
+    "hono": "^4.7.2",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.10.2",
+    "nodemailer": "^6.10.0",
+    "npm": "^11.1.0",
+    "sharp": "^0.33.5"
+  }
+}
