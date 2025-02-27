@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { Tomorrow } from "next/font/google";
 import "./globals.css";
-
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const tomorrow = Tomorrow({
   variable: "--font-tomorrow",
   weight: ['400', '700'],
   subsets: ["latin"],
 });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +24,9 @@ export default function RootLayout({
       <body
         className={`${tomorrow.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -38,13 +38,14 @@ interface CompanyEnv extends Env {
 
   export const authenticateCompany: MiddlewareHandler<CompanyEnv> = async (c, next) => {
   const authHeader = c.req.header('Authorization');
+  console.log(authHeader);
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return c.json({ error: 'Unauthorized: No token provided' }, 401);
   }
 
   const token = authHeader.split(' ')[1];
   try {
-    const decoded = verify(token, 'your-secret-key') as { companyId: string };
+    const decoded = verify(token, process.env.JWT_SECRET || 'default-secret-key') as { companyId: string };
     c.set('companyId', decoded.companyId);
     await next();
   } catch (error) {

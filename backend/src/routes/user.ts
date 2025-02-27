@@ -25,7 +25,7 @@ userRouter.get('/credentials', async (c: CustomContext) => {
 
 userRouter.get('/profile', async (c: CustomContext) => {
   const userId = c.get<string>('userId');
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).select("-password");
   if (!user) return c.json({ message: 'User not found' }, 404);
   return c.json(user)
 })

@@ -13,6 +13,8 @@ export interface IUser extends Document {
   password: string;
 }
 
+
+
 export interface ICompany extends Document {
   name: string;
   email: string;
@@ -22,19 +24,38 @@ export interface ICompany extends Document {
   password: string;
 }
 
+export interface Placeholder {
+  fontsize: any;
+  key: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  fontStyle: string;
+  fontVariant: string;
+  fontFamily: string;
+  fontColor: string;
+}
+
 export interface ITemplate extends Document {
   company: Types.ObjectId;
   name: string;
   templateImage: string;
+  placeholders: Placeholder[];
+  createdAt: Date;
 }
 
 export interface ICredential extends Document {
-  company: Types.ObjectId | ICompany; // This allows population
+  company: Types.ObjectId;
   user: Types.ObjectId;
   template: Types.ObjectId;
   issueDate: Date;
+  expiryDate?: Date;
+  downloads: number;
+  featured: boolean;
   isRevoked: boolean;
-  certificateImage?: string;
+  description?: string;
+  certificateImage: string;
 }
 
 const userSchema = new Schema<IUser>({
@@ -53,7 +74,7 @@ export const User = model<IUser>('User', userSchema);
 
 const companySchema = new Schema<ICompany>({
   name: { type: String, required: true },
-  email: { type: String, required: true, unique: true }, // <-- add this line
+  email: { type: String, required: true, unique: true },
   website: { type: String },
   logo: { type: String },
   credentials: [{ type: Schema.Types.ObjectId, ref: 'Credential' }],
@@ -63,19 +84,44 @@ const companySchema = new Schema<ICompany>({
 export const Company = model<ICompany>('Company', companySchema);
 
 const templateSchema = new Schema<ITemplate>({
-  company: { type: Schema.Types.ObjectId, ref: 'Company' },
+  company: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
   name: { type: String, required: true },
   templateImage: { type: String, required: true },
+  placeholders: [{
+    key: { type: String, required: true },
+    x: { type: Number, required: true },
+    y: { type: Number, required: true },
+    width: { type: Number, required: true },
+    height: { type: Number, required: true },
+    fontStyle: { type: String, default: 'normal' },
+    fontVariant: { type: String, default: 'normal' },
+    fontFamily: { type: String, default: 'Arial' },
+    fontColor: { type: String, default: 'black' },
+  }],
+  createdAt: { type: Date, default: Date.now },
 });
+
+export interface CompanyData {
+  name: string;
+  email: string;
+  totalTemplates: number;
+  totalCredentialsIssued: number;
+  recentTemplates: number;
+  pendingCredentials: number;
+}
 
 export const Template = model<ITemplate>('Template', templateSchema);
 
 const credentialSchema = new Schema<ICredential>({
-  company: { type: Schema.Types.ObjectId, ref: 'Company' },
-  user: { type: Schema.Types.ObjectId, ref: 'User' },
-  template: { type: Schema.Types.ObjectId, ref: 'Template' },
+  company: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  template: { type: Schema.Types.ObjectId, ref: 'Template', required: true },
   issueDate: { type: Date, default: Date.now },
+  expiryDate: { type: Date },
+  downloads: { type: Number, default: 0 },
+  featured: { type: Boolean, default: false },
   isRevoked: { type: Boolean, default: false },
+  description: { type: String },
   certificateImage: { type: String },
 });
 
