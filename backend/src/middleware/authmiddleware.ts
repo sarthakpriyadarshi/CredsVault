@@ -38,7 +38,6 @@ interface CompanyEnv extends Env {
 
   export const authenticateCompany: MiddlewareHandler<CompanyEnv> = async (c, next) => {
   const authHeader = c.req.header('Authorization');
-  console.log(authHeader);
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return c.json({ error: 'Unauthorized: No token provided' }, 401);
   }

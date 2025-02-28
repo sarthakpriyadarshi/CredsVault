@@ -25,6 +25,7 @@
     "hono": "^4.7.2",
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
+    "jspdf": "^3.0.0",
     "mongoose": "^8.10.2",
     "nodemailer": "^6.10.0",
     "npm": "^11.1.0",

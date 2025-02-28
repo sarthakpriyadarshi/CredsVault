@@ -82,12 +82,37 @@ companyRouter.post('/revoke-cred', async (c: Context) => {
 
 companyRouter.post('/create-template', async (c: Context) => {
   const companyId = c.get('companyId') as string;
-  const { name, templateImage, placeholders } = await c.req.json();
+  // Expecting payload: { name, file, elements }
+  const { name, file, elements } = await c.req.json();
 
-  const template = new Template({ company: companyId, name, templateImage, placeholders });
+  // Extract placeholders from text elements.
+  // Ensure that label is always defined (using a default if needed)
+  const placeholders = elements
+    .filter((el: any) => el.type === 'text')
+    .map((el: any) => ({
+      label: el.label || "Placeholder", // ensure label is defined
+      x: el.x,
+      y: el.y,
+      width: el.width || 150,  // default width if missing
+      height: el.height || 50, // default height if missing
+      fontSize: el.fontSize || 20,
+      fontStyle: el.fontStyle || 'normal',
+      fontFamily: el.fontFamily || 'Arial',
+      align: el.align || 'left',
+      fill: el.fill || 'black',
+    }));
+
+  const template = new Template({
+    company: companyId,
+    name,
+    templateImage: file,
+    placeholders,
+  });
+
   await template.save();
   return c.json({ message: 'Template created' });
 });
+
 
 companyRouter.get('/profile', async (c: Context) => {
   const companyId = c.get<string>('companyId');

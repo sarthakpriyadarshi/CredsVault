@@ -25,16 +25,17 @@ export interface ICompany extends Document {
 }
 
 export interface Placeholder {
-  fontsize: any;
   key: string;
+  label: string;
   x: number;
   y: number;
-  width: number;
-  height: number;
-  fontStyle: string;
-  fontVariant: string;
-  fontFamily: string;
-  fontColor: string;
+  width?: number;
+  height?: number;
+  fontSize?: number;
+  fontFamily?: string;
+  fontStyle?: string;
+  align?: string;
+  fill?: string;
 }
 
 export interface ITemplate extends Document {
@@ -88,15 +89,16 @@ const templateSchema = new Schema<ITemplate>({
   name: { type: String, required: true },
   templateImage: { type: String, required: true },
   placeholders: [{
-    key: { type: String, required: true },
+    label: { type: String, required: true },
     x: { type: Number, required: true },
     y: { type: Number, required: true },
     width: { type: Number, required: true },
     height: { type: Number, required: true },
+    fontSize: { type: Number, required: true, default: 20 },
     fontStyle: { type: String, default: 'normal' },
-    fontVariant: { type: String, default: 'normal' },
     fontFamily: { type: String, default: 'Arial' },
-    fontColor: { type: String, default: 'black' },
+    align: { type: String, default: 'left' },
+    fill: { type: String, default: 'black' },
   }],
   createdAt: { type: Date, default: Date.now },
 });
